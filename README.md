@@ -1,2 +1,2 @@
 # jest-webflux-demo
-Demo project for using jest and spring webflux
+This demonstrates using jest (java elasticsearch client) along with spring webflux to create REST APIs.
