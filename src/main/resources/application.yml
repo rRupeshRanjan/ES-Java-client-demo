@@ -1,0 +1,8 @@
+server:
+  port: 8080
+  servlet.context-path: /
+
+es:
+  url: "localhost:9200"
+  protocol: "http"
+  tasks.index: "tasks"
