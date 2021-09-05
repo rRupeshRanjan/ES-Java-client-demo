@@ -4,6 +4,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.javaDemos.esJavaClientWebfluxDemo.config.AppConfig;
 import com.javaDemos.esJavaClientWebfluxDemo.domain.Task;
 import org.elasticsearch.action.delete.DeleteRequest;
+import org.elasticsearch.action.delete.DeleteResponse;
 import org.elasticsearch.action.get.GetRequest;
 import org.elasticsearch.action.index.IndexRequest;
 import org.elasticsearch.action.index.IndexResponse;
@@ -27,12 +28,10 @@ import java.util.Map;
 @Repository
 public class TaskRepository {
     private final RestHighLevelClient client;
-    private final ObjectMapper objectMapper;
     private final String tasksIndex;
 
     public TaskRepository(AppConfig appConfig, ObjectMapper objectMapper) {
         this.client = appConfig.getESClient();
-        this.objectMapper = objectMapper;
         this.tasksIndex = appConfig.getEsTasksIndex();
     }
 
@@ -67,8 +66,8 @@ public class TaskRepository {
         DeleteRequest request = new DeleteRequest(tasksIndex);
         request.id(id);
 
-        int status = client.delete(request, RequestOptions.DEFAULT).status().getStatus();
-        return HttpStatus.valueOf(status);
+        DeleteResponse response = client.delete(request, RequestOptions.DEFAULT);
+        return HttpStatus.valueOf(response.status().getStatus());
     }
 
     public HttpStatus updateTaskById(String id, Map<String, Object> task) throws IOException {

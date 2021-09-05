@@ -15,11 +15,9 @@ import java.io.IOException;
 
 @Repository
 public class IndexRepository {
-    private final AppConfig appConfig;
     private final RestHighLevelClient client;
 
     public IndexRepository(AppConfig appConfig) {
-        this.appConfig = appConfig;
         this.client = appConfig.getESClient();
     }
 
